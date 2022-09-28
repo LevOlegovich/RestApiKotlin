@@ -1,6 +1,5 @@
 package com.example.retrofithomework.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.retrofithomework.presentation.adapters.Book
 
@@ -14,7 +13,7 @@ interface BookDao {
     suspend fun getBook(id: Int): Book
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addBook(books: List<Book>)
+    suspend fun addBooks(books: List<Book>)
 
     @Update
     suspend fun updateBook(book: Book)

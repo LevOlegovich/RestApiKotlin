@@ -1,31 +1,36 @@
 package com.example.retrofithomework.presentation
 
 
-import android.app.Application
-import androidx.lifecycle.*
-import com.example.retrofithomework.R
-import com.example.retrofithomework.api.ApiHelper
-import com.example.retrofithomework.db.BookDao
-import com.example.retrofithomework.db.BookDatabase
-import com.example.retrofithomework.db.DbHelper
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.retrofithomework.presentation.adapters.Book
+import com.example.retrofithomework.repository.BookRepozitory
 import com.example.retrofithomework.utils.Resource
-import com.example.retrofithomework.utils.Status
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 
-class MainViewModel(application: Application) : ViewModel() {
+class MainViewModel(var repozitory: BookRepozitory) : ViewModel() {
 
-    val db: BookDatabase = DbHelper.getDatabase(application)
-    val dao: BookDao = db.getBookDao()
+    // val db: BookDatabase = DbHelper.getDatabase(application)
+    //val dao: BookDao = db.getBookDao()
 
     private val _books = MutableLiveData<Resource<List<Book>>>()
     val books: LiveData<Resource<List<Book>>>
         get() = _books
 
     private val exeptionHandler = CoroutineExceptionHandler { _, exeption ->
-        _books.postValue(Resource.error(application.getString(R.string.Error)))
+
+        viewModelScope.launch {
+            val data=repozitory.bookDb.getBooks()
+            _books.postValue(Resource.error("Что то пошло не так!",data))
+        }
+
+
     }
 
 
@@ -37,15 +42,12 @@ class MainViewModel(application: Application) : ViewModel() {
     fun loadData() {
 
         viewModelScope.launch(Dispatchers.Main + exeptionHandler) {
-            val bookApi = ApiHelper.getBookApi()
-            _books.postValue(Resource.loading())
-            val response: Response<List<Book>> = bookApi.getBooks()
+                     _books.postValue(Resource.loading())
+            val response: Response<List<Book>> = repozitory.getBooksApi()
+
             if (response.isSuccessful) {
-                response.body()?.let { dao.updateBooks(it) }
+                response.body()?.let { repozitory.updateBooksDb(it) }
                 _books.postValue(Resource.success(response.body()))
-            } else {
-                _books.postValue(Resource.error(response.message()))
-               // getBooks()
             }
 
 //           обработка ошибок. первый способ :
@@ -66,22 +68,6 @@ class MainViewModel(application: Application) : ViewModel() {
         }
     }
 
-    fun getBooks() {
-        viewModelScope.launch {
-            _books.value?.data = dao.getBooks()
-        }
-
-    }
-
-//    suspend fun getBooks1(): List<Book> {
-//        var x: Deferred<List<Book>> = viewModelScope.async {
-//            val bookApi = ApiHelper.getBookApi()
-//            bookApi.getBooks1()
-//        }
-//
-//        return x.await()
-//
-//    }
 
 
 }

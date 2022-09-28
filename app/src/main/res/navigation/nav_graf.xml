@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graf"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.example.retrofithomework.examples.navigationexample.FirstFragment"
+        android:label="fragment_example1"
+        tools:layout="@layout/fragment_example1" >
+        <action
+            android:id="@+id/action_firstFragment_to_example2Fragment"
+            app:destination="@id/example2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/example2Fragment"
+        android:name="com.example.retrofithomework.examples.navigationexample.Example2Fragment"
+        android:label="fragment_example2"
+        tools:layout="@layout/fragment_example2" >
+        <action
+            android:id="@+id/action_example2Fragment_to_example3Fragment"
+            app:destination="@id/example3Fragment" />
+        <action
+            android:id="@+id/action_example2Fragment_to_firstFragment"
+            app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_example2Fragment_to_example3Fragment2"
+            app:destination="@id/example3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/example3Fragment"
+        android:name="com.example.retrofithomework.examples.navigationexample.Example3Fragment"
+        android:label="fragment_example3"
+        tools:layout="@layout/fragment_example3" >
+        <action
+            android:id="@+id/action_example3Fragment_to_example2Fragment"
+            app:destination="@id/example2Fragment" />
+    </fragment>
+</navigation>
