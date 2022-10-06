@@ -5,8 +5,9 @@ import com.example.retrofithomework.db.BookDao
 import com.example.retrofithomework.presentation.adapters.Book
 import retrofit2.Response
 import retrofit2.http.*
+import javax.inject.Inject
 
-class BookRepozitory(var bookApi: BookApi, var bookDb: BookDao) {
+class BookRepozitory @Inject constructor(var bookApi: BookApi, var bookDb: BookDao) {
 
 
     suspend fun getBooksApi(): Response<List<Book>> {

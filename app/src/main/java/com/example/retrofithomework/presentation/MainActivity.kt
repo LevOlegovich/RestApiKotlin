@@ -6,19 +6,34 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Insert
+import com.example.retrofithomework.App
 import com.example.retrofithomework.api.ApiHelper
+import com.example.retrofithomework.api.BookApi
 import com.example.retrofithomework.databinding.ActivityMainBinding
+import com.example.retrofithomework.db.BookDao
 import com.example.retrofithomework.db.DbHelper
+import com.example.retrofithomework.di.MainComponent
 import com.example.retrofithomework.presentation.adapters.BookAdapter
 import com.example.retrofithomework.repository.BookRepozitory
 import com.example.retrofithomework.utils.Status
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var mainComponent: MainComponent
+    @Inject
+    lateinit var bookApi:BookApi
+    @Inject
+    lateinit var bookDao: BookDao
+    @Inject
+    lateinit var repository: BookRepozitory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        mainComponent=(applicationContext as App).mainComponent
+        mainComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -29,8 +44,7 @@ class MainActivity : AppCompatActivity() {
         binding.rv.layoutManager = LinearLayoutManager(this)
 
         val mainViewModelFactory =
-            MainViewModelFactory(BookRepozitory(bookApi = ApiHelper.getBookApi(),
-                bookDb = DbHelper.getDatabase(application).getBookDao()))
+            MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         viewModel.books.observe(this) {
 
