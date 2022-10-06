@@ -26,8 +26,8 @@ class MainViewModel(var repozitory: BookRepozitory) : ViewModel() {
     private val exeptionHandler = CoroutineExceptionHandler { _, exeption ->
 
         viewModelScope.launch {
-            val data = repozitory.bookDb.getBooks()
-            _books.postValue(Resource.error("Что то пошло не так!", data))
+            val data=repozitory.bookDb.getBooks()
+            _books.postValue(Resource.error("Что то пошло не так!",data))
         }
 
 
@@ -42,11 +42,11 @@ class MainViewModel(var repozitory: BookRepozitory) : ViewModel() {
     fun loadData() {
 
         viewModelScope.launch(Dispatchers.Main + exeptionHandler) {
-            _books.postValue(Resource.loading())
+                     _books.postValue(Resource.loading())
             val response: Response<List<Book>> = repozitory.getBooksApi()
 
             if (response.isSuccessful) {
-                response.body()?.let { repozitory.addBooksDb(it) }
+                response.body()?.let { repozitory.updateBooksDb(it) }
                 _books.postValue(Resource.success(response.body()))
             }
 
@@ -67,6 +67,7 @@ class MainViewModel(var repozitory: BookRepozitory) : ViewModel() {
 //            }
         }
     }
+
 
 
 }
