@@ -12,9 +12,10 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
 
-class MainViewModel(var repozitory: BookRepozitory) : ViewModel() {
+class MainViewModel @Inject constructor(var repozitory: BookRepozitory) : ViewModel() {
 
     // val db: BookDatabase = DbHelper.getDatabase(application)
     //val dao: BookDao = db.getBookDao()

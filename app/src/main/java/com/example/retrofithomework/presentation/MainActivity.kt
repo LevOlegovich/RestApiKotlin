@@ -23,16 +23,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var mainComponent: MainComponent
+     lateinit var mainComponent: MainComponent
+
     @Inject
-    lateinit var bookApi:BookApi
+    lateinit var mainViewModelFactory: DaggerViewModelFactory
+
+    @Inject
+    lateinit var bookApi: BookApi
+
     @Inject
     lateinit var bookDao: BookDao
+
     @Inject
     lateinit var repository: BookRepozitory
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainComponent=(applicationContext as App).mainComponent
+        mainComponent = (applicationContext as App).mainComponent
         mainComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -43,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         binding.rv.adapter = bookAdapter
         binding.rv.layoutManager = LinearLayoutManager(this)
 
-        val mainViewModelFactory =
-            MainViewModelFactory(repository)
+//        val mainViewModelFactory =
+//            MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         viewModel.books.observe(this) {
 

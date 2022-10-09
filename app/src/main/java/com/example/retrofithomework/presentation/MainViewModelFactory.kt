@@ -3,10 +3,29 @@ package com.example.retrofithomework.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.retrofithomework.repository.BookRepozitory
+import javax.inject.Inject
+import javax.inject.Provider
 
-class MainViewModelFactory(var repoozitory: BookRepozitory) : ViewModelProvider.Factory {
+//class MainViewModelFactory(var repoozitory: BookRepozitory) : ViewModelProvider.Factory {
+//
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        return MainViewModel(repoozitory) as T
+//    }
+//}
+
+@Suppress("UNCHECKED_CAST")
+class DaggerViewModelFactory @Inject constructor(private val viewModelsMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) :
+    ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(repoozitory) as T
+        val creator = viewModelsMap[modelClass] ?: viewModelsMap.asIterable().firstOrNull {
+            modelClass.isAssignableFrom(it.key)
+        }?.value ?: throw IllegalArgumentException("unknown model class $modelClass")
+
+        return try {
+            creator.get() as T
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
     }
 }
