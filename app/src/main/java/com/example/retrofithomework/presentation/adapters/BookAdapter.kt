@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofithomework.databinding.BookItemNewBinding
+import com.example.retrofithomework.domain.Book
 
 class BookAdapter(var list1: MutableList<Book>) : RecyclerView.Adapter<BookViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {

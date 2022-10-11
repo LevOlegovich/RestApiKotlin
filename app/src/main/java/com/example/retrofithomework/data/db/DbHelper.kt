@@ -1,4 +1,4 @@
-package com.example.retrofithomework.db
+package com.example.retrofithomework.data.db
 
 import android.content.Context
 import androidx.room.Room

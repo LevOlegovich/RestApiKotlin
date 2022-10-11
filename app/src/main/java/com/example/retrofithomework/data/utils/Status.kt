@@ -1,4 +1,4 @@
-package com.example.retrofithomework.utils
+package com.example.retrofithomework.data.utils
 
 enum class Status {
     SUCCESS,

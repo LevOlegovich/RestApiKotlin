@@ -1,4 +1,4 @@
-package com.example.retrofithomework.utils
+package com.example.retrofithomework.data.utils
 
 data class Resource<out T>(var status: Status, var data: @UnsafeVariance T?, var message: String?) {
 

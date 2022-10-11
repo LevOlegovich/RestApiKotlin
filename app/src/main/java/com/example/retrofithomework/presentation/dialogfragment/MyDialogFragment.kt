@@ -1,4 +1,4 @@
-package com.example.retrofithomework.presentation
+package com.example.retrofithomework.presentation.dialogfragment
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.retrofithomework.presentation.adapters.Book
+import com.example.retrofithomework.domain.Book
 import com.example.retrofithomework.databinding.MyDialogFragBinding
-import com.example.retrofithomework.di.MainComponent
-import com.example.retrofithomework.main
+import com.example.retrofithomework.data.di.MainComponent
+import com.example.retrofithomework.data.di.DaggerViewModelFactory
+import com.example.retrofithomework.presentation.mainactivity.MainActivity
 import javax.inject.Inject
 
 class MyDialogFragment : DialogFragment() {
@@ -26,7 +27,8 @@ private lateinit var mainComponent: MainComponent
         super.onCreate(savedInstanceState)
         mainComponent = (requireActivity() as MainActivity).mainComponent
         mainComponent.inject(this)
-        viewModel = ViewModelProvider(requireActivity(), daggerViewModelFactory).get(MyDialogFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity(), daggerViewModelFactory).get(
+            MyDialogFragmentViewModel::class.java)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

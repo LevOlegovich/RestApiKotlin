@@ -1,4 +1,4 @@
-package com.example.retrofithomework.di
+package com.example.retrofithomework.data.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

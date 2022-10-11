@@ -1,9 +1,8 @@
 package com.example.retrofithomework
 
 import android.app.Application
-import android.content.Context
-import com.example.retrofithomework.di.DaggerMainComponent
-import com.example.retrofithomework.di.MainComponent
+import com.example.retrofithomework.data.di.DaggerMainComponent
+import com.example.retrofithomework.data.di.MainComponent
 
 class App : Application() {
    lateinit var mainComponent: MainComponent

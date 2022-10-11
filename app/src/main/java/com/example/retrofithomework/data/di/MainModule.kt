@@ -1,11 +1,10 @@
-package com.example.retrofithomework.di
+package com.example.retrofithomework.data.di
 
 import android.app.Application
-import android.content.Context
-import com.example.retrofithomework.api.ApiHelper
-import com.example.retrofithomework.api.BookApi
-import com.example.retrofithomework.db.BookDao
-import com.example.retrofithomework.db.DbHelper
+import com.example.retrofithomework.data.api.ApiHelper
+import com.example.retrofithomework.data.api.BookApi
+import com.example.retrofithomework.data.db.BookDao
+import com.example.retrofithomework.data.db.DbHelper
 import dagger.Module
 import dagger.Provides
 

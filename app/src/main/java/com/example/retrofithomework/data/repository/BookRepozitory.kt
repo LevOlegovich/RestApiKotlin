@@ -1,8 +1,8 @@
-package com.example.retrofithomework.repository
+package com.example.retrofithomework.data.repository
 
-import com.example.retrofithomework.api.BookApi
-import com.example.retrofithomework.db.BookDao
-import com.example.retrofithomework.presentation.adapters.Book
+import com.example.retrofithomework.data.api.BookApi
+import com.example.retrofithomework.data.db.BookDao
+import com.example.retrofithomework.domain.Book
 import retrofit2.Response
 import retrofit2.http.*
 import javax.inject.Inject

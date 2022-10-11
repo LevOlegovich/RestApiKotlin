@@ -1,13 +1,14 @@
-package com.example.retrofithomework.presentation
+package com.example.retrofithomework.presentation.mainactivity
 
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.retrofithomework.presentation.adapters.Book
-import com.example.retrofithomework.repository.BookRepozitory
-import com.example.retrofithomework.utils.Resource
+import com.example.retrofithomework.domain.Book
+import com.example.retrofithomework.data.repository.BookRepozitory
+import com.example.retrofithomework.data.utils.Resource
+import com.example.retrofithomework.domain.GetBooksApiUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +16,10 @@ import retrofit2.Response
 import javax.inject.Inject
 
 
-class MainViewModel @Inject constructor(var repozitory: BookRepozitory) : ViewModel() {
+class MainViewModel @Inject constructor(
+    var repozitory: BookRepozitory,
+    var getBooksApiUseCase: GetBooksApiUseCase
+) : ViewModel() {
 
     // val db: BookDatabase = DbHelper.getDatabase(application)
     //val dao: BookDao = db.getBookDao()
@@ -44,7 +48,8 @@ class MainViewModel @Inject constructor(var repozitory: BookRepozitory) : ViewMo
 
         viewModelScope.launch(Dispatchers.Main + exeptionHandler) {
             _books.postValue(Resource.loading())
-            val response: Response<List<Book>> = repozitory.getBooksApi()
+//            val response: Response<List<Book>> = repozitory.getBooksApi()
+            val response: Response<List<Book>> = getBooksApiUseCase.invoke()
 
             if (response.isSuccessful) {
                 response.body()?.let { repozitory.addBooksDb(it) }

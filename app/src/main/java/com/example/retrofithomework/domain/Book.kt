@@ -1,4 +1,4 @@
-package com.example.retrofithomework.presentation.adapters
+package com.example.retrofithomework.domain
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

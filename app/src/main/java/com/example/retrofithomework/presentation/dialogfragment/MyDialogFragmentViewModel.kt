@@ -1,11 +1,9 @@
-package com.example.retrofithomework.presentation
+package com.example.retrofithomework.presentation.dialogfragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.retrofithomework.presentation.adapters.Book
-import com.example.retrofithomework.api.ApiHelper
-import com.example.retrofithomework.api.BookApi
-import com.example.retrofithomework.repository.BookRepozitory
+import com.example.retrofithomework.domain.Book
+import com.example.retrofithomework.data.repository.BookRepozitory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

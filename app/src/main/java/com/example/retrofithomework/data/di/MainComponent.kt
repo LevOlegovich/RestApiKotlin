@@ -1,8 +1,8 @@
-package com.example.retrofithomework.di
+package com.example.retrofithomework.data.di
 
 import android.app.Application
-import com.example.retrofithomework.presentation.MainActivity
-import com.example.retrofithomework.presentation.MyDialogFragment
+import com.example.retrofithomework.presentation.mainactivity.MainActivity
+import com.example.retrofithomework.presentation.dialogfragment.MyDialogFragment
 import dagger.BindsInstance
 import dagger.Component
 

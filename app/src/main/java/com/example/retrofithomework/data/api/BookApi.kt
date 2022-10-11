@@ -1,6 +1,6 @@
-package com.example.retrofithomework.api
+package com.example.retrofithomework.data.api
 
-import com.example.retrofithomework.presentation.adapters.Book
+import com.example.retrofithomework.domain.Book
 import retrofit2.Response
 import retrofit2.http.*
 

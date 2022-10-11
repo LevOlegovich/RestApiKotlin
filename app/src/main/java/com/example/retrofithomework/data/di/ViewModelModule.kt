@@ -1,10 +1,9 @@
-package com.example.retrofithomework.di
+package com.example.retrofithomework.data.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.retrofithomework.presentation.DaggerViewModelFactory
-import com.example.retrofithomework.presentation.MainViewModel
-import com.example.retrofithomework.presentation.MyDialogFragmentViewModel
+import com.example.retrofithomework.presentation.mainactivity.MainViewModel
+import com.example.retrofithomework.presentation.dialogfragment.MyDialogFragmentViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -1,4 +1,4 @@
-package com.example.retrofithomework.presentation
+package com.example.retrofithomework.presentation.mainactivity
 
 import android.os.Bundle
 import android.view.View
@@ -6,17 +6,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Insert
 import com.example.retrofithomework.App
-import com.example.retrofithomework.api.ApiHelper
-import com.example.retrofithomework.api.BookApi
+import com.example.retrofithomework.data.api.BookApi
 import com.example.retrofithomework.databinding.ActivityMainBinding
-import com.example.retrofithomework.db.BookDao
-import com.example.retrofithomework.db.DbHelper
-import com.example.retrofithomework.di.MainComponent
+import com.example.retrofithomework.data.db.BookDao
+import com.example.retrofithomework.data.di.MainComponent
 import com.example.retrofithomework.presentation.adapters.BookAdapter
-import com.example.retrofithomework.repository.BookRepozitory
-import com.example.retrofithomework.utils.Status
+import com.example.retrofithomework.data.repository.BookRepozitory
+import com.example.retrofithomework.data.di.DaggerViewModelFactory
+import com.example.retrofithomework.presentation.dialogfragment.MyDialogFragment
+import com.example.retrofithomework.data.utils.Status
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {

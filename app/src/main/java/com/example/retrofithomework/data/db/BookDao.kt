@@ -1,7 +1,7 @@
-package com.example.retrofithomework.db
+package com.example.retrofithomework.data.db
 
 import androidx.room.*
-import com.example.retrofithomework.presentation.adapters.Book
+import com.example.retrofithomework.domain.Book
 
 
 @Dao

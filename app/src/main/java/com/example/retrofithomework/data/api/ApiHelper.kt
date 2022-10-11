@@ -1,4 +1,4 @@
-package com.example.retrofithomework.api
+package com.example.retrofithomework.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
