@@ -20,7 +20,8 @@ class MyDialogFragment : DialogFragment() {
         get() = _binding!!
 
     private lateinit var viewModel: MyDialogFragmentViewModel
-private lateinit var mainComponent: MainComponent
+    private lateinit var mainComponent: MainComponent
+
     @Inject
     lateinit var daggerViewModelFactory: DaggerViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ private lateinit var mainComponent: MainComponent
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)
             .setPositiveButton("Add book") { _, _ ->
-                println(binding.editTextAuthor.toString())
+             //   println(binding.editTextAuthor.toString())
                 val book = Book(
                     0L,
                     binding.editTextTitle.text.toString(),
@@ -46,8 +47,8 @@ private lateinit var mainComponent: MainComponent
                     binding.editTextDescription.text.toString(),
                     binding.editTextPublished.text.toString().toLong()
                 )
-                viewModel.saveBook(book)
-                println(book)
+                viewModel.saveBookInRemouteServer(book)
+             //   println(book)
 
             }
             .create()

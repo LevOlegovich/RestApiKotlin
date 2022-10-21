@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofithomework.App
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-     lateinit var mainComponent: MainComponent
+    lateinit var mainComponent: MainComponent
 
     @Inject
     lateinit var mainViewModelFactory: DaggerViewModelFactory
@@ -38,6 +39,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         mainComponent = (applicationContext as App).mainComponent
         mainComponent.inject(this)
         super.onCreate(savedInstanceState)

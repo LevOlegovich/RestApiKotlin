@@ -4,16 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.retrofithomework.domain.Book
 import com.example.retrofithomework.data.repository.BookRepozitory
+import com.example.retrofithomework.domain.AddBookApiUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MyDialogFragmentViewModel @Inject constructor(var repozitory: BookRepozitory) : ViewModel() {
+class MyDialogFragmentViewModel @Inject constructor(
+    var repozitory: BookRepozitory,
+    var addBookApiUseCase: AddBookApiUseCase,
+) : ViewModel() {
 
-    fun saveBook(book: Book) {
-
+    fun saveBookInRemouteServer(book: Book) {
         viewModelScope.launch {
-//            var bookApi: BookApi = ApiHelper.getBookApi()
-            repozitory.addBookApi(book)
+            addBookApiUseCase.invoke(book)
         }
     }
 }

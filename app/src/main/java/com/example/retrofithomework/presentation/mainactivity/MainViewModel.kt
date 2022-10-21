@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.retrofithomework.domain.Book
 import com.example.retrofithomework.data.repository.BookRepozitory
 import com.example.retrofithomework.data.utils.Resource
+import com.example.retrofithomework.domain.AddBooksDbUseCase
 import com.example.retrofithomework.domain.GetBooksApiUseCase
+import com.example.retrofithomework.domain.GetBooksDbUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +20,9 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     var repozitory: BookRepozitory,
-    var getBooksApiUseCase: GetBooksApiUseCase
+    var getBooksApiUseCase: GetBooksApiUseCase,
+    var getBooksDbUseCase: GetBooksDbUseCase,
+    var addBooksDbUseCase: AddBooksDbUseCase,
 ) : ViewModel() {
 
     // val db: BookDatabase = DbHelper.getDatabase(application)
@@ -31,7 +35,7 @@ class MainViewModel @Inject constructor(
     private val exeptionHandler = CoroutineExceptionHandler { _, exeption ->
 
         viewModelScope.launch {
-            val data = repozitory.bookDb.getBooks()
+            val data = getBooksDbUseCase.invoke()
             _books.postValue(Resource.error("Что то пошло не так!", data))
         }
 
@@ -52,7 +56,7 @@ class MainViewModel @Inject constructor(
             val response: Response<List<Book>> = getBooksApiUseCase.invoke()
 
             if (response.isSuccessful) {
-                response.body()?.let { repozitory.addBooksDb(it) }
+                response.body()?.let { addBooksDbUseCase.invoke(it) }
                 _books.postValue(Resource.success(response.body()))
             }
 
